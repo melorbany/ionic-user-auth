@@ -7,6 +7,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { AuthService } from "../services/auth";
+import {UserServices} from "../services/users";
 
 
 @Component({
@@ -16,36 +17,27 @@ export class MyApp {
   rootPage: any = TabsPage;
   signinPage = SigninPage;
   signupPage = SignupPage;
-  isAuthenticated = false;
 
   @ViewChild('nav') nav: NavController;
 
   constructor(platform: Platform,
               private menuCtrl: MenuController,
-              private authService: AuthService) {
-    firebase.initializeApp({
-      apiKey: "AIzaSyDpajGvwZCs6i7E_l6MYWx0cIl7HzisRXk",
-      authDomain: "ionic2-recipebook.firebaseapp.com"
-    });
+              private authService: AuthService,
+              private userService: UserServices) {
 
 
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.isAuthenticated = true;
-        this.rootPage = TabsPage;
-      } else {
-        this.isAuthenticated = false;
-        this.rootPage = SigninPage;
-      }
-    });
-
-
+    if(!this.isAuthorized()){
+                this.rootPage = SigninPage;
+    }
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+
+
+
     });
   }
 
@@ -58,5 +50,10 @@ export class MyApp {
     this.authService.logout();
     this.menuCtrl.close();
     this.nav.setRoot(SigninPage);
+  }
+
+
+  isAuthorized(){
+    return this.userService.isAuthorized();
   }
 }

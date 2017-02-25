@@ -1,18 +1,24 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { LoadingController, AlertController } from "ionic-angular";
+import {LoadingController, AlertController, NavController} from "ionic-angular";
 import {UserServices} from "../../services/users";
+import {TabsPage} from "../tabs/tabs";
 
 
 @Component({
   selector: 'page-signin',
   templateUrl: 'signin.html'
 })
+
+
 export class SigninPage {
+
+  tabsPage = TabsPage;
 
   constructor(private userService: UserServices,
               private loadingCtrl: LoadingController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private  navCtrl : NavController) {
   }
 
   onSignin(form: NgForm) {
@@ -26,7 +32,12 @@ export class SigninPage {
       .subscribe(
         response => {
           console.log(response);
-          loading.dismiss()
+          loading.dismiss();
+
+
+          this.navCtrl.push(this.tabsPage);
+
+
         },
 
         error => {

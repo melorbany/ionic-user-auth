@@ -3,7 +3,6 @@ import {Response, Http} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {AuthService} from "./auth";
 import 'rxjs/Rx';
-import auth = firebase.
 
 @Injectable()
 export class UserServices {
@@ -35,7 +34,9 @@ export class UserServices {
   }
 
 
-  setAuthorized ( authoirzed : boolean){
+  setAuthorized ( authorized : boolean){
     this.authorized = authorized ;
   }
+
+  isAuthorized(){ return this.authorized}
 }

@@ -10,7 +10,7 @@
         ion-item
         icon-left
         (click)="onLoad(rootPage)"
-        *ngIf="isAuthenticated">
+        *ngIf="isAuthorized()">
         <ion-icon name="book"></ion-icon>
         Recipe Book
       </button>
@@ -18,7 +18,7 @@
         ion-item
         icon-left
         (click)="onLoad(signinPage)"
-        *ngIf="!isAuthenticated">
+        *ngIf="!isAuthorized()">
         <ion-icon name="log-in"></ion-icon>
         Signin
       </button>
@@ -26,7 +26,7 @@
         ion-item
         icon-left
         (click)="onLoad(signupPage)"
-        *ngIf="!isAuthenticated">
+        *ngIf="!isAuthorized()">
         <ion-icon name="person"></ion-icon>
         Signup
       </button>
@@ -34,7 +34,7 @@
         ion-item
         icon-left
         (click)="onLogout()"
-        *ngIf="isAuthenticated">
+        *ngIf="isAuthorized()">
         <ion-icon name="log-out"></ion-icon>
         Logout
       </button>
