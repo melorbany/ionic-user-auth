@@ -2,5 +2,11 @@
   "name": "ionic2-course",
   "app_id": "",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+  "proxies": [
+    {
+      "path": "/api/v1/register",
+      "proxyUrl": "http://192.168.100.9:8000/api/v1/register"
+    }
+  ]
 }

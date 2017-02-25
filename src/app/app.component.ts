@@ -17,6 +17,7 @@ export class MyApp {
   signinPage = SigninPage;
   signupPage = SignupPage;
   isAuthenticated = false;
+
   @ViewChild('nav') nav: NavController;
 
   constructor(platform: Platform,
@@ -26,6 +27,8 @@ export class MyApp {
       apiKey: "AIzaSyDpajGvwZCs6i7E_l6MYWx0cIl7HzisRXk",
       authDomain: "ionic2-recipebook.firebaseapp.com"
     });
+
+
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.isAuthenticated = true;
@@ -35,6 +38,9 @@ export class MyApp {
         this.rootPage = SigninPage;
       }
     });
+
+
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { LoadingController, AlertController } from "ionic-angular";
+import {UserServices} from "../../services/users";
 
-import { AuthService } from "../../services/auth";
 
 @Component({
   selector: 'page-signin',
@@ -10,28 +10,39 @@ import { AuthService } from "../../services/auth";
 })
 export class SigninPage {
 
-  constructor(private authService: AuthService,
+  constructor(private userService: UserServices,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController) {
   }
 
   onSignin(form: NgForm) {
+
+    console.log("sigin in");
     const loading = this.loadingCtrl.create({
       content: 'Signing you in...'
     });
     loading.present();
-    this.authService.signin(form.value.email, form.value.password)
-      .then(data => {
-        loading.dismiss();
-      })
-      .catch(error => {
-        loading.dismiss();
-        const alert = this.alertCtrl.create({
-          title: 'Signin failed!',
-          message: error.message,
-          buttons: ['Ok']
-        });
-        alert.present();
-      });
+    this.userService.signin(form.value.email, form.value.password)
+      .subscribe(
+        response => {
+          console.log(response);
+          loading.dismiss()
+        },
+
+        error => {
+          loading.dismiss();
+          this.handleError(error.json().error);
+        }
+      );
+  }
+
+
+  private handleError(errorMessage: string) {
+    const alert = this.alertCtrl.create({
+      title: 'An error occurred!',
+      message: errorMessage,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 }

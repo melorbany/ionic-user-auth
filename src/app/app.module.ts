@@ -12,6 +12,7 @@ import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { AuthService } from "../services/auth";
 import { DatabaseOptionsPage } from "../pages/database-options/database-options";
+import {UserServices} from "../services/users";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DatabaseOptionsPage } from "../pages/database-options/database-options"
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ShoppingListService,
     RecipesService,
-    AuthService
+    AuthService,
+    UserServices
   ]
 })
 export class AppModule {
